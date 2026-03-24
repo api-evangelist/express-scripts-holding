@@ -1,0 +1,7 @@
+aid: express-scripts-holding
+url: https://raw.githubusercontent.com/api-evangelist/express-scripts-holding/refs/heads/main/apis.yml
+modified: '2026-03-24'
+apis: []
+common:
+  - type: Website
+    url: https://www.express-scripts-holding.com
