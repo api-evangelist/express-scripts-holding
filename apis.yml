@@ -7,7 +7,7 @@ description: >-
   including health plans and employers. The Express Scripts Developer Portal
   exists for partner and client integrations, but its API catalog is not
   openly published; access is gated to authenticated partners.
-type: Contract
+kind: contract
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Health
