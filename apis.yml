@@ -23,6 +23,10 @@ access: Partner
 specificationVersion: '0.19'
 apis: []
 common:
+  - type: GitHubOrganization
+    url: https://github.com/ExpressScripts
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/express-scripts
   - type: Website
     url: https://www.express-scripts.com
   - type: Developer Portal
