@@ -33,6 +33,8 @@ common:
     url: https://developer.express-scripts.com/
   - type: Parent Company
     url: https://www.evernorth.com/
+  - type: LLMsTxt
+    url: https://developer.express-scripts.com/llms.txt
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
