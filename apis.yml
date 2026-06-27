@@ -30,11 +30,11 @@ common:
     url: https://www.linkedin.com/company/express-scripts
   - type: Website
     url: https://www.express-scripts.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.express-scripts.com/
   - type: Parent Company
     url: https://www.evernorth.com/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.express-scripts.com/llms.txt
 maintainers:
   - FN: Kin Lane
