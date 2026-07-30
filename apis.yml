@@ -8,7 +8,18 @@ description: >-
   exists for partner and client integrations, but its API catalog is not
   openly published; access is gated to authenticated partners.
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/express-scripts-holding.png
 tags:
   - Health
   - Healthcare
