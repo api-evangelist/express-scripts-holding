@@ -1,0 +1,55 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  https://api-sandbox.express-scripts.io (HTTP 401) and the developer portal's own
+  deployed runtime configuration read from
+  https://developer.express-scripts.com/assets/index-F-3lEwAf.js
+note: >-
+  Express Scripts operates a real, separately-hosted sandbox. Its existence, host and
+  the portal features that drive it are recorded from the provider's own deployed
+  configuration and a live probe. No test values are recorded because none are
+  published — the sandbox itself requires an authenticated portal session.
+published: true
+sandbox:
+  name: Express Scripts API Sandbox
+  host: https://api-sandbox.express-scripts.io
+  production_host: https://api.express-scripts.io
+  separate_host: true
+  console_url: https://developer.express-scripts.com/api-sandbox
+  status_observed: 401
+  evidence:
+    - url: https://api-sandbox.express-scripts.io/
+      status: 401
+      body: '401 - Unauthorized'
+    - url: https://developer.express-scripts.com/api-sandbox
+      status: 200
+      note: React SPA route; renders only after an authenticated session.
+mode_separation:
+  style: separate-host
+  note: >-
+    Test and live are separated by hostname (api-sandbox.express-scripts.io vs
+    api.express-scripts.io) rather than by a key prefix. No test/live key prefix
+    convention is published.
+portal_features:
+  note: Read verbatim from the portal's deployed feature-flag block.
+  try-our-apis: true
+  api-sandbox-route: true
+  explore-spec-button: false
+  show-example-curl-request: false
+  public-specs: false
+  can-register-apps: false
+  can-view-apps: false
+  register-authorization: true
+test_values:
+  published: false
+  note: >-
+    No test cards, test member ids, fixture data, hosted test tokens, time simulation
+    or trigger tooling is published on any anonymously reachable page. NONE WAS
+    INVENTED. A PBM sandbox would carry synthetic member and claim fixtures; whether
+    Express Scripts ships them is not determinable without a partner account.
+access:
+  self_serve: false
+  requires: >-
+    An Okta account on p.login.developer.express-scripts.com plus registration
+    approval — the portal sets register-authorization true and can-register-apps
+    false, so app credentials are issued by Express Scripts rather than self-served.

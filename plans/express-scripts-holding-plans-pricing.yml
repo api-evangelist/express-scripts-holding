@@ -1,0 +1,31 @@
+generated: '2026-09-07'
+method: searched
+source: https://developer.express-scripts.com/
+note: >-
+  Searched the developer portal, the corporate site and the open web for any published
+  API plan, tier, quota or price. None exists. Express Scripts is a pharmacy benefit
+  manager whose APIs are sold inside client and partner contracts, not as a metered
+  developer product — there is no self-serve tier, no price card and no public quota.
+  This is a recorded zero, not an omission.
+plan_count: 0
+plans: []
+pricing_model: contract
+self_serve: false
+public_pricing: false
+free_tier: false
+trial: false
+access_path: >-
+  Access is obtained through an Express Scripts client or partner relationship and an
+  approved account on the developer portal; the portal issues application credentials
+  rather than letting a developer self-register an app
+  (can-register-apps: false, register-authorization: true).
+evidence:
+  - url: https://developer.express-scripts.com/
+    status: 200
+    note: React SPA shell, 1,245 bytes. No pricing route exists in the portal's route table.
+  - url: https://developer.express-scripts.com/docs/solutions
+    status: 200
+    note: SPA shell; renders no content anonymously.
+  - url: https://p-developer-portal.digitaledge.cigna.com/
+    status: 403
+    note: 'Portal content backend: {"message":"Missing Authentication Token"} on every path.'

@@ -1,0 +1,58 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  Probes of the developer portal route table, candidate status-page hosts, and the
+  corporate site. No versioning policy, deprecation policy, SLA or status page is
+  published on any anonymously reachable surface.
+note: >-
+  Recorded absences, each backed by a probe. Express Scripts may well publish all of
+  this behind the partner gate; nothing here claims it does not exist, only that a
+  public integrator cannot read it.
+versioning:
+  policy_published: false
+  scheme: unknown
+  note: >-
+    No version convention could be read. The gateway hosts answer 401 before routing,
+    and no public contract exists to inspect a path or header version from.
+deprecation:
+  policy_published: false
+  sunset_header: unknown
+  deprecation_header: unknown
+  rfc8594: unknown
+  note: >-
+    No deprecation or sunset policy found. RFC 8594 header support cannot be observed
+    because no operation is reachable anonymously.
+  deprecated_operations: []
+sla:
+  published: false
+  note: Any availability commitment lives in the client or partner contract, not on a public page.
+status_page:
+  published: false
+  note: >-
+    No status page exists. status.express-scripts.com and status.evernorth.com do not
+    resolve (NXDOMAIN). express-scripts.statuspage.io answers HTTP 302 to
+    https://www.statuspage.io/ — the Statuspage marketing site — which means no
+    Statuspage tenant is provisioned under that name. This is a deliberately recorded
+    false positive: a naive probe that follows the redirect and sees HTTP 200 would
+    credit Express Scripts with a status page it does not run.
+changelog:
+  published: false
+  note: >-
+    /changelog and /release-notes on the developer portal return the same 1,245-byte
+    React SPA shell every other route returns; they are not real pages.
+evidence:
+  - url: https://status.express-scripts.com/
+    status: 0
+    result: NXDOMAIN
+  - url: https://status.evernorth.com/
+    status: 0
+    result: NXDOMAIN
+  - url: https://express-scripts.statuspage.io/
+    status: 302
+    result: redirects to https://www.statuspage.io/ — no tenant provisioned
+  - url: https://developer.express-scripts.com/changelog
+    status: 200
+    result: SPA shell, 1245 bytes
+  - url: https://developer.express-scripts.com/release-notes
+    status: 200
+    result: SPA shell, 1245 bytes

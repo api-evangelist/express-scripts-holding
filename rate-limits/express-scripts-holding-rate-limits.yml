@@ -1,0 +1,28 @@
+generated: '2026-09-07'
+method: searched
+source: https://developer.express-scripts.com/
+note: >-
+  No published rate limits. The developer portal renders client-side and its content
+  backend refuses anonymous requests, so any limits Express Scripts documents live
+  behind the partner gate. No limit was inferred and no header was guessed.
+limit_count: 0
+limits: []
+headers:
+  published: false
+  observed: []
+  note: >-
+    Both gateway hosts answer HTTP 401 with an 18-byte plain-text body and no
+    RateLimit-*, X-RateLimit-* or Retry-After header, so no runtime rate-limit signal
+    could be observed anonymously. A 401 is returned before any limiter would run;
+    absence here is not evidence that the gateway lacks limits.
+exhaustion_status: null
+evidence:
+  - url: https://api.express-scripts.io/
+    status: 401
+    headers_observed: none
+  - url: https://api-sandbox.express-scripts.io/
+    status: 401
+    headers_observed: none
+  - url: https://developer.express-scripts.com/service-apis
+    status: 200
+    note: SPA shell; no anonymously readable reference.

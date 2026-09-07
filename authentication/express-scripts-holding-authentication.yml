@@ -1,0 +1,140 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  https://p.login.developer.express-scripts.com/oauth2/default/.well-known/openid-configuration
+  (HTTP 200, application/json) plus the developer portal's own deployed runtime
+  configuration, read from https://developer.express-scripts.com/assets/index-F-3lEwAf.js
+note: >-
+  Express Scripts publishes no OpenAPI, so no securityScheme block could be read.
+  This profile is built entirely from documents the provider serves anonymously:
+  two OAuth 2.0 / OpenID Connect discovery documents and the client configuration
+  the portal ships in its own JavaScript bundle. Nothing here is inferred from prose.
+summary: >-
+  A single OAuth 2.0 / OpenID Connect estate fronted by Express Scripts' own Okta
+  tenant. Every API surface sits behind the same authorization server; the portal
+  itself is an OIDC relying party using authorization code + PKCE.
+schemes:
+  - id: esrx-oidc
+    type: openIdConnect
+    protocol: OpenID Connect 1.0
+    openIdConnectUrl: https://p.login.developer.express-scripts.com/oauth2/default/.well-known/openid-configuration
+    issuer: https://p1-express-scripts.okta.com/oauth2/default
+    vanity_issuer: https://p.login.developer.express-scripts.com/oauth2/default
+    provider: Okta
+    endpoints:
+      authorization: https://p1-express-scripts.okta.com/oauth2/default/v1/authorize
+      token: https://p1-express-scripts.okta.com/oauth2/default/v1/token
+      userinfo: https://p1-express-scripts.okta.com/oauth2/default/v1/userinfo
+      jwks: https://p1-express-scripts.okta.com/oauth2/default/v1/keys
+      introspection: https://p1-express-scripts.okta.com/oauth2/default/v1/introspect
+      revocation: https://p1-express-scripts.okta.com/oauth2/default/v1/revoke
+      end_session: https://p1-express-scripts.okta.com/oauth2/default/v1/logout
+      device_authorization: https://p1-express-scripts.okta.com/oauth2/default/v1/device/authorize
+      pushed_authorization_request: https://p1-express-scripts.okta.com/oauth2/default/v1/par
+      registration: https://p1-express-scripts.okta.com/oauth2/v1/clients
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+      - password
+      - urn:ietf:params:oauth:grant-type:device_code
+      - urn:openid:params:grant-type:ciba
+    token_endpoint_auth_methods:
+      - client_secret_basic
+      - client_secret_post
+      - client_secret_jwt
+      - private_key_jwt
+      - none
+    pkce:
+      supported: true
+      methods:
+        - S256
+      note: S256 only — the plain challenge method is not offered.
+    sender_constrained_tokens:
+      dpop: true
+      dpop_algs:
+        - RS256
+        - RS384
+        - RS512
+        - ES256
+        - ES384
+        - ES512
+      mtls: false
+    id_token_signing_algs:
+      - RS256
+    id_token_encryption:
+      supported: true
+      algs:
+        - RSA-OAEP-256
+        - RSA-OAEP-384
+        - RSA-OAEP-512
+      enc:
+        - A256GCM
+  - id: esrx-oidc-org
+    type: openIdConnect
+    protocol: OpenID Connect 1.0
+    openIdConnectUrl: https://p.login.developer.express-scripts.com/.well-known/openid-configuration
+    issuer: https://p.login.developer.express-scripts.com
+    provider: Okta
+    note: >-
+      The Okta org-level authorization server. It additionally advertises the
+      client_credentials grant, which the /oauth2/default server does not — the
+      machine-to-machine path for partner integrations.
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+      - password
+      - client_credentials
+      - urn:ietf:params:oauth:grant-type:device_code
+      - urn:openid:params:grant-type:ciba
+  - id: esrx-gateway
+    type: http
+    scheme: bearer
+    bearer_format: JWT
+    applies_to:
+      - https://api.express-scripts.io
+      - https://api-sandbox.express-scripts.io
+    note: >-
+      Both gateway hosts answer HTTP 401 "401 - Unauthorized" to every anonymous
+      request, including /.well-known/* paths. The gateway authenticates before it
+      routes. The token issuer is the Okta estate above; the exact header contract
+      is not published anywhere public.
+    evidence:
+      - url: https://api.express-scripts.io/
+        status: 401
+      - url: https://api-sandbox.express-scripts.io/
+        status: 401
+client_registration:
+  dynamic: true
+  endpoint: https://p1-express-scripts.okta.com/oauth2/v1/clients
+  spec: RFC 7591
+  note: >-
+    A registration_endpoint is advertised in the discovery document. It was NOT
+    exercised — no client was registered. Presence is read from the document only.
+portal_client:
+  note: >-
+    The developer portal's own OIDC client, read verbatim from its deployed bundle.
+    A public client id is not a secret; no credential is recorded here.
+  client_id: 0oa6fdn7jjmwwEue54h7
+  redirect_uri: https://developer.express-scripts.com/login/callback
+  pkce_enabled: true
+  scopes:
+    - openid
+    - address
+    - email
+    - phone
+    - profile
+    - esrx.default
+workforce_idp:
+  issuer: https://cigna.okta.com/oauth2/default
+  redirect_uri: https://internal.developer.express-scripts.com/callback
+  note: >-
+    A second, internal-only relying party for Cigna workforce sign-in. Recorded for
+    completeness; it is not a partner-facing surface.
+gaps:
+  - No OpenAPI is published, so no per-operation security requirements can be read.
+  - >-
+    No /.well-known/oauth-protected-resource (RFC 9728) is served on either gateway
+    host, so an agent cannot discover the authorization server from the resource.
+  - The bearer-token header contract for api.express-scripts.io is not publicly documented.

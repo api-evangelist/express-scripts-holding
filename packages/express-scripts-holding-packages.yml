@@ -1,0 +1,38 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  npm (registry.npmjs.org search), PyPI, the GitHub org
+  https://github.com/ExpressScripts, and the developer portal.
+note: >-
+  No first-party Express Scripts client library exists in any public registry. The
+  GitHub org holds 8 public repositories: 7 are forks of upstream open-source projects
+  (Apache JMeter, Spring Boot, Kubernetes, Micrometer, nginx-conf, drone-vault,
+  fusionauth-containers), all last pushed 2024-09-26, and one first-party sample,
+  sample-gateway-mock-apis, last pushed 2023-10-18. None is a client SDK for an
+  Express Scripts API. The npm name `express-scripts` exists but is an unrelated
+  2017 placeholder at version 0.0.0 by a third party — it is NOT an Express Scripts
+  package and must not be recorded as one.
+package_count: 0
+official_count: 0
+packages: []
+registries_searched:
+  - registry: npm
+    query: express-scripts, expressscripts, evernorth
+    first_party_hits: 0
+    note: >-
+      `express-scripts@0.0.0` (published 2017-04-11) is a third-party squat, not
+      first-party. Deliberately excluded.
+  - registry: pypi
+    query: express-scripts
+    first_party_hits: 0
+    status: 404
+  - registry: github
+    org: ExpressScripts
+    public_repos: 8
+    first_party_sdks: 0
+sdk_published: false
+gaps:
+  - >-
+    No SDK in any language. With no public OpenAPI either, a partner integrating with
+    Express Scripts writes an HTTP client by hand from documentation they can only
+    read after being granted portal access.

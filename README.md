@@ -71,27 +71,62 @@ Express Scripts is a pharmacy benefit management (PBM) company, now part of Cign
 ## Scope
 
 - **Type:** Contract
-- **Position:** Consuming
-- **Access:** Partner
+- **Position:** Producing
+- **Access:** 3rd-Party (partner-approved)
 
 ## Tags:
 
- - Healthcare, Pharmacy, Pharmacy Benefit Management, Prescriptions, Health
+ - Health, Healthcare, Pharmacy, Pharmacy Benefit Management, Prescriptions, Claims, Fortune 100
 
 ## Timestamps
 
 - **Created:** 2026-03-24
-- **Modified:** 2026-04-28
+- **Modified:** 2026-09-07
 
 ## APIs
 
-No openly-documented APIs are published. Express Scripts maintains a partner-facing developer portal at [developer.express-scripts.com](https://developer.express-scripts.com/) but its catalog is gated to authenticated partners.
+**Express Scripts Partner APIs** — `https://api.express-scripts.io`
+([reference](https://developer.express-scripts.com/service-apis))
+
+Express Scripts operates a real partner API estate: a production gateway at
+`api.express-scripts.io`, a separate sandbox gateway at `api-sandbox.express-scripts.io`,
+and its own OAuth 2.0 / OpenID Connect authorization server on an Express Scripts Okta
+tenant. Both gateway hosts answer HTTP 401 to every anonymous request, including
+`/.well-known/*` paths, so the gateway authenticates before it routes.
+
+**No API contract is published publicly.** No OpenAPI, GraphQL SDL, AsyncAPI, Protobuf or
+WSDL is reachable at any anonymous URL. The developer portal renders client-side, its
+content backend returns `{"message":"Missing Authentication Token"}` (HTTP 403) on every
+path, and the portal's own deployed configuration sets `"public-specs": false` — so
+specifications are visible only to approved partners after sign-in.
+
+What Express Scripts *does* publish anonymously are its OAuth discovery documents, captured
+verbatim in `well-known/`: OpenID Connect discovery and RFC 8414 authorization-server
+metadata advertising PKCE (S256), DPoP, PAR, the device grant, CIBA, token introspection,
+revocation and dynamic client registration.
+
+> **Not Express Scripts.** The developer portal shares one codebase with the Cigna and
+> Evernorth portals, and its bundle names two FHIR base URLs on `digitaledge.cigna.com`.
+> Both CapabilityStatements were fetched and both declare `publisher: "Cigna, Inc."`. Those
+> are Cigna's CMS Interoperability APIs and are deliberately **not** attributed to Express
+> Scripts.
 
 ## Common Properties
 
 - [Website](https://www.express-scripts.com)
 - [Developer Portal](https://developer.express-scripts.com/)
 - [Parent Company](https://www.evernorth.com/)
+- [GitHub Organization](https://github.com/ExpressScripts)
+- [Terms of Service](https://www.express-scripts.com/terms-of-use)
+- [Privacy Policy](https://www.evernorth.com/privacy-policy)
+- [Support](https://www.express-scripts.com/contact-us)
+- [Help Center](https://www.express-scripts.com/frequently-asked-questions)
+- [Trust Center](https://trust.express-scripts.com/) — SOC 2, PCI DSS, HIPAA
+- [Vulnerability Disclosure](https://www.cigna.com/legal/members/responsible-vulnerability-disclosure)
+
+Machine-readable artifacts in this repository: `well-known/`, `authentication/`, `scopes/`,
+`conformance/`, `sandbox/`, `lifecycle/`, `plans/`, `rate-limits/`, `packages/`, `llms/`,
+`security/`.
 
 ## Maintainers
 

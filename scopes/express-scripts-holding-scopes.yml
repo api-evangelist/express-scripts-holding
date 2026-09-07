@@ -1,0 +1,79 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  scopes_supported from the two fetched OAuth/OIDC discovery documents, plus the
+  scope array the developer portal's own OIDC client requests, read from
+  https://developer.express-scripts.com/assets/index-F-3lEwAf.js
+note: >-
+  No scopes/permissions reference page is publicly reachable — the developer portal
+  renders client-side and its content backend answers 403 to anonymous requests.
+  Everything below is read from documents the provider serves anonymously. The one
+  Express Scripts-specific scope in the estate is `esrx.default`; every other scope
+  advertised on the default authorization server is a standard OIDC or Okta scope.
+docs: null
+docs_note: >-
+  No public scopes reference found. The API-specific scopes behind `esrx.default`
+  are not published and would need an authenticated portal session to enumerate.
+authorization_servers:
+  - issuer: https://p1-express-scripts.okta.com/oauth2/default
+    vanity: https://p.login.developer.express-scripts.com/oauth2/default
+    role: The authorization server the developer portal authenticates against.
+  - issuer: https://p.login.developer.express-scripts.com
+    role: >-
+      Okta org-level authorization server. Advertises client_credentials and the Okta
+      management scope set; not the partner API path.
+scopes:
+  - name: esrx.default
+    source: portal-client
+    first_party: true
+    description: >-
+      The Express Scripts application scope requested by the developer portal client.
+      This is the only vendor-namespaced scope observed in the estate. What it grants
+      is not published; the scope name is recorded, its permissions are not known.
+    evidence: developer portal OIDC client scope array
+  - name: openid
+    source: discovery
+    standard: OpenID Connect Core 1.0
+    description: Requests an ID token. Required for any OIDC flow.
+  - name: profile
+    source: discovery
+    standard: OpenID Connect Core 1.0
+    description: Basic profile claims (name, preferred_username, locale, updated_at).
+  - name: email
+    source: discovery
+    standard: OpenID Connect Core 1.0
+    description: email and email_verified claims.
+  - name: address
+    source: discovery
+    standard: OpenID Connect Core 1.0
+    description: The address claim.
+  - name: phone
+    source: discovery
+    standard: OpenID Connect Core 1.0
+    description: phone_number and phone_number_verified claims.
+  - name: offline_access
+    source: discovery
+    standard: OpenID Connect Core 1.0
+    description: Requests a refresh token.
+  - name: groups
+    source: discovery
+    server: org-level
+    description: Group membership claim. Advertised on the org authorization server.
+  - name: device_sso
+    source: discovery
+    server: default
+    description: Okta device single sign-on.
+  - name: interclient_access
+    source: discovery
+    server: default
+    description: Okta cross-client token exchange.
+counts:
+  total: 10
+  first_party: 1
+  standard_oidc: 6
+  vendor_platform: 3
+gaps:
+  - >-
+    No per-API or per-operation scope is published. `esrx.default` is a single coarse
+    application scope; there is no evidence of least-privilege scoping on the partner
+    APIs, and no public document maps a scope to a capability.

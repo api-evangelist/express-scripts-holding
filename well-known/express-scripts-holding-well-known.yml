@@ -1,0 +1,227 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  Anonymous HTTPS probes of /.well-known/* across every host this record knows —
+  the registrable domain and www, the developer portal host, both API gateway
+  hosts discovered in the portal bundle, the Okta authorization-server hosts that
+  the portal's own runtime configuration and the fetched discovery documents name,
+  and the trust-center host.
+note: >-
+  The real documents live on the AUTHORIZATION-SERVER hosts, not on the primary
+  domain. Probing only express-scripts.com would have scored Express Scripts zero
+  on discovery documents it genuinely publishes. The developer-portal host answers
+  HTTP 200 with an identical 1,245-byte React SPA shell for EVERY /.well-known/*
+  path — including /.well-known/agent-card.json — so every one of those 200s is a
+  catch-all, not a document, and is recorded as a miss. No agent card exists and
+  none was authored.
+hosts:
+  - host: p.login.developer.express-scripts.com
+    note: >-
+      Express Scripts' branded Okta authorization server, named as the `okta.issuer`
+      in the developer portal's own deployed runtime configuration.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: express-scripts-holding-p-login-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: express-scripts-holding-p-login-oauth-authorization-server.json
+      - path: /oauth2/default/.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: express-scripts-holding-p-login-default-openid-configuration.json
+        note: >-
+          The default custom authorization server — this is the issuer the developer
+          portal application actually authenticates against.
+      - path: /oauth2/default/.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: express-scripts-holding-p-login-default-oauth-authorization-server.json
+      - path: /.well-known/security.txt
+        status: 405
+      - path: /.well-known/api-catalog
+        status: 405
+      - path: /.well-known/oauth-protected-resource
+        status: 405
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: p1-express-scripts.okta.com
+    note: >-
+      The underlying Okta org behind the branded login host, named as `issuer` inside
+      the fetched /oauth2/default discovery documents.
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: application/json
+        file: express-scripts-holding-okta-openid-configuration.json
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: application/json
+        file: express-scripts-holding-okta-oauth-authorization-server.json
+      - path: /.well-known/security.txt
+        status: 405
+      - path: /.well-known/api-catalog
+        status: 405
+      - path: /.well-known/oauth-protected-resource
+        status: 405
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: developer.express-scripts.com
+    note: >-
+      SPA catch-all. Every path below returned HTTP 200 with the identical
+      1,245-byte Vite/React index shell (`<div id="root"></div>`), not a document.
+      All recorded as misses.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        content_type: text/html
+        served: spa-shell
+        document: false
+  - host: express-scripts.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+  - host: www.express-scripts.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+  - host: api.express-scripts.io
+    note: Production API gateway. Every path answers 401 — the gateway authenticates before routing.
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+      - path: /.well-known/openid-configuration
+        status: 401
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+      - path: /.well-known/api-catalog
+        status: 401
+      - path: /.well-known/ai-plugin.json
+        status: 401
+      - path: /.well-known/agent-card.json
+        status: 401
+      - path: /.well-known/agent.json
+        status: 401
+      - path: /.well-known/oauth-protected-resource
+        status: 401
+  - host: api-sandbox.express-scripts.io
+    note: Sandbox API gateway. Every path answers 401.
+    documents:
+      - path: /.well-known/security.txt
+        status: 401
+      - path: /.well-known/openid-configuration
+        status: 401
+      - path: /.well-known/oauth-authorization-server
+        status: 401
+      - path: /.well-known/api-catalog
+        status: 401
+      - path: /.well-known/ai-plugin.json
+        status: 401
+      - path: /.well-known/agent-card.json
+        status: 401
+      - path: /.well-known/agent.json
+        status: 401
+      - path: /.well-known/oauth-protected-resource
+        status: 401
+  - host: trust.express-scripts.com
+    note: Edge policy answered 403 to our probe on every path; not evidence of absence.
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+summary:
+  hosts_probed: 9
+  hosts_resolving: 8
+  host_not_resolving: express-scripts.io (NXDOMAIN — the apex of the API gateway domain is not published; only the api. and api-sandbox. hosts resolve)
+  documents_served: 6
+  security_txt: false
+  api_catalog: false
+  agent_card: false
+  ai_plugin: false
+  oauth_discovery: true

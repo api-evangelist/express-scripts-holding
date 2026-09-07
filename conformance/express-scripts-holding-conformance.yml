@@ -1,0 +1,152 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  Assertions read from the OAuth 2.0 / OpenID Connect discovery documents Express
+  Scripts serves anonymously at p.login.developer.express-scripts.com and
+  p1-express-scripts.okta.com, and from the /.well-known probe sweep recorded in
+  well-known/express-scripts-holding-well-known.yml.
+note: >-
+  Every `conforms: true` below is backed by a field in a document that was actually
+  fetched. Nothing is asserted from marketing prose. Express Scripts publishes no
+  OpenAPI, so no contract-level conformance (pagination, rfc9457, idempotency,
+  json:api) could be evaluated — those are recorded as unknown, not false.
+conformance:
+  - id: oauth2
+    name: OAuth 2.0 (RFC 6749)
+    conforms: true
+    evidence: >-
+      https://p.login.developer.express-scripts.com/.well-known/oauth-authorization-server
+      — HTTP 200, advertises authorization_endpoint, token_endpoint and
+      grant_types_supported including authorization_code, refresh_token and
+      client_credentials.
+  - id: oidc
+    name: OpenID Connect Core 1.0
+    conforms: true
+    evidence: >-
+      https://p.login.developer.express-scripts.com/oauth2/default/.well-known/openid-configuration
+      — HTTP 200, issuer https://p1-express-scripts.okta.com/oauth2/default,
+      userinfo_endpoint, id_token_signing_alg_values_supported [RS256], openid in
+      scopes_supported.
+  - id: rfc8414
+    name: OAuth 2.0 Authorization Server Metadata (RFC 8414)
+    conforms: true
+    evidence: >-
+      /.well-known/oauth-authorization-server returns HTTP 200 application/json on
+      both p.login.developer.express-scripts.com and p1-express-scripts.okta.com.
+  - id: rfc7636
+    name: PKCE (RFC 7636)
+    conforms: true
+    evidence: 'code_challenge_methods_supported: ["S256"] in both discovery documents. Plain is not offered.'
+  - id: rfc9126
+    name: Pushed Authorization Requests (RFC 9126)
+    conforms: true
+    evidence: >-
+      pushed_authorization_request_endpoint =
+      https://p1-express-scripts.okta.com/oauth2/default/v1/par
+  - id: rfc9449
+    name: DPoP — sender-constrained tokens (RFC 9449)
+    conforms: true
+    evidence: 'dpop_signing_alg_values_supported: [RS256, RS384, RS512, ES256, ES384, ES512]'
+  - id: rfc8628
+    name: OAuth 2.0 Device Authorization Grant (RFC 8628)
+    conforms: true
+    evidence: >-
+      device_authorization_endpoint =
+      https://p1-express-scripts.okta.com/oauth2/default/v1/device/authorize and
+      urn:ietf:params:oauth:grant-type:device_code in grant_types_supported.
+  - id: rfc7591
+    name: Dynamic Client Registration (RFC 7591)
+    conforms: true
+    evidence: >-
+      registration_endpoint = https://p1-express-scripts.okta.com/oauth2/v1/clients.
+      Advertised in the discovery document; the endpoint was not exercised.
+  - id: rfc7662
+    name: OAuth 2.0 Token Introspection (RFC 7662)
+    conforms: true
+    evidence: introspection_endpoint = https://p1-express-scripts.okta.com/oauth2/default/v1/introspect
+  - id: rfc7009
+    name: OAuth 2.0 Token Revocation (RFC 7009)
+    conforms: true
+    evidence: revocation_endpoint = https://p1-express-scripts.okta.com/oauth2/default/v1/revoke
+  - id: ciba
+    name: OpenID Connect Client-Initiated Backchannel Authentication
+    conforms: true
+    evidence: >-
+      urn:openid:params:grant-type:ciba in grant_types_supported;
+      backchannel_token_delivery_modes_supported = [poll].
+  - id: rfc9728
+    name: OAuth 2.0 Protected Resource Metadata (RFC 9728)
+    conforms: false
+    evidence: >-
+      /.well-known/oauth-protected-resource returns 401 on api.express-scripts.io and
+      api-sandbox.express-scripts.io, 405 on the authorization-server hosts, and a
+      1,245-byte SPA shell on developer.express-scripts.com. No such document is
+      served, so an agent holding no credential cannot discover the authorization
+      server from the resource.
+  - id: rfc9116
+    name: security.txt (RFC 9116)
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returns 404 on express-scripts.com and
+      www.express-scripts.com, 405 on the Okta hosts, and an SPA shell on
+      developer.express-scripts.com. A vulnerability disclosure policy is published
+      as a web page instead — see security/express-scripts-holding-vulnerability-disclosure.yml.
+  - id: rfc9727
+    name: api-catalog (RFC 9727)
+    conforms: false
+    evidence: /.well-known/api-catalog served on no host — 404, 405, 401 or SPA shell everywhere.
+  - id: fapi
+    name: FAPI (Financial-grade API)
+    conforms: false
+    evidence: >-
+      No FAPI claim published and no mTLS sender constraint offered
+      (tls_client_certificate_bound_access_tokens absent from both discovery documents).
+      DPoP is offered instead. Not expected for this sector; recorded for completeness.
+  - id: fhir
+    name: HL7 FHIR
+    conforms: false
+    evidence: >-
+      No Express Scripts-operated FHIR endpoint was found. IMPORTANT — do not
+      re-litigate: the Express Scripts developer portal bundle names two FHIR base
+      URLs (p-hi2.digitaledge.cigna.com/PatientAccess/v1/ and
+      .../ProviderDirectory/v1/). Both were fetched. Both CapabilityStatements
+      declare publisher "Cigna, Inc.", implementation URLs on
+      digitaledge.cigna.com, and a SMART configuration whose authorization endpoint
+      is p-hi2.cigna.com. They are CIGNA's CMS Interoperability APIs, not Express
+      Scripts'. They appear in this portal's bundle only because Cigna, Evernorth and
+      Express Scripts run one shared portal codebase with a common markdown baseUrls
+      map. Attributing them to Express Scripts would credit this company with an API
+      it does not operate.
+  - id: smart-on-fhir
+    name: SMART App Launch
+    conforms: false
+    evidence: >-
+      No Express Scripts SMART configuration found. The one reachable
+      /.well-known/smart-configuration in this estate is Cigna's — see the fhir entry.
+unknown:
+  - id: rfc9457
+    name: Problem Details for HTTP APIs
+    reason: No OpenAPI or public error reference is published; response media types cannot be read.
+  - id: pagination
+    reason: No public contract or reference to read a pagination convention from.
+  - id: idempotency
+    reason: No public contract or reference documents a replay-protection mechanism.
+  - id: odata
+    reason: No public contract to inspect.
+domain_standard:
+  detected: false
+  note: >-
+    Pharmacy benefit management has real domain standards — NCPDP SCRIPT and NCPDP
+    Telecommunication for claims, X12 834/835/837 for eligibility and remittance, and
+    the CMS-mandated FHIR stack for payer interoperability. None is DECLARED by any
+    Express Scripts contract reachable without credentials, because no contract is
+    reachable without credentials. This is recorded as not-detected, not as absent:
+    a PBM of this size almost certainly speaks NCPDP behind the partner gate, but a
+    domain-standard conformance must be read from the contract, and the contract is
+    not public. Reward-only check — no penalty applied.
+compliance_programs:
+  source: security/express-scripts-holding-trust-center.yml
+  certifications:
+    - SOC 2
+    - PCI DSS
+    - HIPAA
