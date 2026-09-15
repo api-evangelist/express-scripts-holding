@@ -1,26 +1,21 @@
 aid: express-scripts-holding
 name: Express Scripts Holding
-description: >-
-  Express Scripts is a pharmacy benefit management (PBM) company, now part of
-  Cigna's Evernorth Health Services, that processes prescription claims and
-  provides home delivery and specialty pharmacy services for clients including
-  health plans, employers and government programs. Express Scripts runs a real
-  partner API estate — a production gateway at api.express-scripts.io, a separate
-  sandbox gateway at api-sandbox.express-scripts.io, and its own OAuth 2.0 /
-  OpenID Connect authorization server on an Express Scripts Okta tenant that
-  serves live discovery documents anonymously. No API contract is published
-  publicly: the developer portal renders client-side, its content backend refuses
-  anonymous requests, and the portal's own configuration sets public-specs to
-  false, so specifications are visible only to approved partners after sign-in.
+description: 'Express Scripts is a pharmacy benefit management (PBM) company, now part of Cigna''s Evernorth
+  Health Services, that processes prescription claims and provides home delivery and specialty pharmacy
+  services for clients including health plans, employers and government programs. Express Scripts runs
+  a real partner API estate — a production gateway at api.express-scripts.io, a separate sandbox gateway
+  at api-sandbox.express-scripts.io, and its own OAuth 2.0 / OpenID Connect authorization server on an
+  Express Scripts Okta tenant that serves live discovery documents anonymously. No API contract is published
+  publicly: the developer portal renders client-side, its content backend refuses anonymous requests,
+  and the portal''s own configuration sets public-specs to false, so specifications are visible only to
+  approved partners after sign-in.'
 kind: contract
 deliveryModel:
   model: unknown
   open_source: false
   commercial: false
   callable_host: true
-  label: >-
-    Partner-contracted APIs on a first-party gateway; no public licence or product
-    terms on record
+  label: Partner-contracted APIs on a first-party gateway; no public licence or product terms on record
   confidence: low
   source:
   - https://api.express-scripts.io
@@ -40,13 +35,13 @@ accessModel:
   method: probed
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/express-scripts-holding.png
 tags:
-  - Health
-  - Healthcare
-  - Pharmacy
-  - Pharmacy Benefit Management
-  - Prescriptions
-  - Claims
-  - Fortune 100
+- Health
+- Healthcare
+- Pharmacy
+- Pharmacy Benefit Management
+- Prescriptions
+- Claims
+- Fortune 100
 url: https://raw.githubusercontent.com/api-evangelist/express-scripts-holding/refs/heads/main/apis.yml
 created: '2026-03-24'
 modified: '2026-09-07'
@@ -54,82 +49,79 @@ position: Producing
 access: 3rd-Party
 specificationVersion: '0.23'
 apis:
-  - aid: express-scripts-holding-partner-apis
-    name: Express Scripts Partner APIs
-    description: >-
-      The partner-facing API estate Express Scripts exposes through its own gateway.
-      The production host api.express-scripts.io and the sandbox host
-      api-sandbox.express-scripts.io both answer HTTP 401 to every anonymous request,
-      including /.well-known/* paths, so the gateway authenticates before it routes.
-      Both hosts were discovered in the developer portal's own deployed runtime
-      configuration, where they are declared as hsGateway.gateway and apiSandbox.url.
-      No OpenAPI, GraphQL SDL, AsyncAPI, Protobuf or WSDL is published for this
-      estate at any anonymously reachable URL.
-    humanURL: https://developer.express-scripts.com/service-apis
-    baseURL: https://api.express-scripts.io
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/express-scripts-holding.png
-    tags:
-      - Pharmacy Benefit Management
-      - Prescriptions
-      - Claims
-      - Healthcare
-    properties:
-      - type: Sandbox
-        url: sandbox/express-scripts-holding-sandbox.yml
-      - type: Authentication
-        url: authentication/express-scripts-holding-authentication.yml
-common:
-  - type: WellKnown
-    url: well-known/express-scripts-holding-well-known.yml
-  - type: Authentication
-    url: authentication/express-scripts-holding-authentication.yml
-  - type: OAuthScopes
-    url: scopes/express-scripts-holding-scopes.yml
-  - type: Conformance
-    url: conformance/express-scripts-holding-conformance.yml
-  - type: Compliance
-    url: security/express-scripts-holding-trust-center.yml
-  - type: Security
-    url: security/express-scripts-holding-vulnerability-disclosure.yml
+- aid: express-scripts-holding:express-scripts-holding-partner-apis
+  name: Express Scripts Partner APIs
+  description: The partner-facing API estate Express Scripts exposes through its own gateway. The production
+    host api.express-scripts.io and the sandbox host api-sandbox.express-scripts.io both answer HTTP 401
+    to every anonymous request, including /.well-known/* paths, so the gateway authenticates before it
+    routes. Both hosts were discovered in the developer portal's own deployed runtime configuration, where
+    they are declared as hsGateway.gateway and apiSandbox.url. No OpenAPI, GraphQL SDL, AsyncAPI, Protobuf
+    or WSDL is published for this estate at any anonymously reachable URL.
+  humanURL: https://developer.express-scripts.com/service-apis
+  baseURL: https://api.express-scripts.io
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/express-scripts-holding.png
+  tags:
+  - Pharmacy Benefit Management
+  - Prescriptions
+  - Claims
+  - Healthcare
+  properties:
   - type: Sandbox
     url: sandbox/express-scripts-holding-sandbox.yml
-  - type: Lifecycle
-    url: lifecycle/express-scripts-holding-lifecycle.yml
-  - type: Plans
-    url: plans/express-scripts-holding-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/express-scripts-holding-rate-limits.yml
-  - type: Packages
-    url: packages/express-scripts-holding-packages.yml
-  - type: LLMsTxt
-    url: llms/express-scripts-holding-llms.txt
-  - type: TrustCenter
-    url: security/express-scripts-holding-trust-center.yml
-  - type: VulnerabilityDisclosure
-    url: security/express-scripts-holding-vulnerability-disclosure.yml
-  - type: DomainSecurity
-    url: security/express-scripts-holding-domain-security.yml
-  - type: GitHubOrganization
-    url: https://github.com/ExpressScripts
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/express-scripts
-  - type: Website
-    url: https://www.express-scripts.com
-  - type: DeveloperPortal
-    url: https://developer.express-scripts.com/
-  - type: TermsOfService
-    url: https://www.express-scripts.com/terms-of-use
-  - type: PrivacyPolicy
-    url: https://www.evernorth.com/privacy-policy
-  - type: Support
-    url: https://www.express-scripts.com/contact-us
-  - type: HelpCenter
-    url: https://www.express-scripts.com/frequently-asked-questions
-  - type: ParentCompany
-    url: https://www.evernorth.com/
+  - type: Authentication
+    url: authentication/express-scripts-holding-authentication.yml
+common:
+- type: WellKnown
+  url: well-known/express-scripts-holding-well-known.yml
+- type: Authentication
+  url: authentication/express-scripts-holding-authentication.yml
+- type: OAuthScopes
+  url: scopes/express-scripts-holding-scopes.yml
+- type: Conformance
+  url: conformance/express-scripts-holding-conformance.yml
+- type: Compliance
+  url: security/express-scripts-holding-trust-center.yml
+- type: Security
+  url: security/express-scripts-holding-vulnerability-disclosure.yml
+- type: Sandbox
+  url: sandbox/express-scripts-holding-sandbox.yml
+- type: Lifecycle
+  url: lifecycle/express-scripts-holding-lifecycle.yml
+- type: Plans
+  url: plans/express-scripts-holding-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/express-scripts-holding-rate-limits.yml
+- type: Packages
+  url: packages/express-scripts-holding-packages.yml
+- type: LLMsTxt
+  url: llms/express-scripts-holding-llms.txt
+- type: TrustCenter
+  url: security/express-scripts-holding-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/express-scripts-holding-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/express-scripts-holding-domain-security.yml
+- type: GitHubOrganization
+  url: https://github.com/ExpressScripts
+- type: LinkedIn
+  url: https://www.linkedin.com/company/express-scripts
+- type: Website
+  url: https://www.express-scripts.com
+- type: DeveloperPortal
+  url: https://developer.express-scripts.com/
+- type: TermsOfService
+  url: https://www.express-scripts.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.evernorth.com/privacy-policy
+- type: Support
+  url: https://www.express-scripts.com/contact-us
+- type: HelpCenter
+  url: https://www.express-scripts.com/frequently-asked-questions
+- type: ParentCompany
+  url: https://www.evernorth.com/
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-enrichment:
   date: '2026-09-07'
   status: enriched
@@ -138,19 +130,17 @@ x-enrichment:
 x-coverage:
   state: gated
   reason: partner-login
-  detail: >-
-    Express Scripts runs a real API estate, but its developer portal ships the flag
-    "public-specs": false in its own deployed configuration and its content backend
-    at p-developer-portal.digitaledge.cigna.com answers {"message":"Missing
-    Authentication Token"} with HTTP 403 on every path, so no specification is
-    reachable without an approved partner account.
+  detail: 'Express Scripts runs a real API estate, but its developer portal ships the flag "public-specs":
+    false in its own deployed configuration and its content backend at p-developer-portal.digitaledge.cigna.com
+    answers {"message":"Missing Authentication Token"} with HTTP 403 on every path, so no specification
+    is reachable without an approved partner account.'
   evidence:
-    - url: https://p-developer-portal.digitaledge.cigna.com/specs
-      status: 403
-    - url: https://developer.express-scripts.com/service-apis
-      status: 200
-    - url: https://api.express-scripts.io/
-      status: 401
-    - url: https://p.login.developer.express-scripts.com/oauth2/default/.well-known/openid-configuration
-      status: 200
+  - url: https://p-developer-portal.digitaledge.cigna.com/specs
+    status: 403
+  - url: https://developer.express-scripts.com/service-apis
+    status: 200
+  - url: https://api.express-scripts.io/
+    status: 401
+  - url: https://p.login.developer.express-scripts.com/oauth2/default/.well-known/openid-configuration
+    status: 200
   checked: '2026-09-07'
