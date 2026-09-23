@@ -1,7 +1,9 @@
 ---
 title: Express Scripts Complaint
 url: https://www.michigan.gov/ag/-/media/Project/Websites/AG/releases/2025/April/Express-Scripts-Complaint.pdf
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Express Scripts Holding" press release artificial intelligence'
 position: 4
 source: serpapi-google
