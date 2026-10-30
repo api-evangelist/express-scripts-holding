@@ -1,4 +1,4 @@
-# Express Scripts Holding (express-scripts-holding)
+# Express Scripts Holding
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,72 +64,109 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Express Scripts is a pharmacy benefit management (PBM) company, now part of Cigna's Evernorth Health Services, that processes prescription claims and provides home delivery and specialty pharmacy services for clients including health plans and employers. The Express Scripts Developer Portal exists for partner and client integrations, but its API catalog is not openly published; access is gated to authenticated partners.
+Express Scripts is a pharmacy benefit management (PBM) company, now part of Cigna's Evernorth Health Services, that processes prescription claims and provides home delivery and specialty pharmacy services for clients including health plans, employers and government programs. Express Scripts runs a real partner API estate — a production gateway at api.express-scripts.io, a separate sandbox gateway at api-sandbox.express-scripts.io, and its own OAuth 2.0 / OpenID Connect authorization server on an Express Scripts Okta tenant that serves live discovery documents anonymously. No API contract is published publicly: the developer portal renders client-side, its content backend refuses anonymous requests, and the portal's own configuration sets public-specs to false, so specifications are visible only to approved partners after sign-in.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/express-scripts-holding/refs/heads/main/apis.yml)
+**Areas:** Health · Healthcare · Pharmacy · Pharmacy Benefit Management · Prescriptions · Claims · Fortune 100
 
-## Scope
+## Express Scripts Holding on APIs.io
 
-- **Type:** Contract
-- **Position:** Producing
-- **Access:** 3rd-Party (partner-approved)
+Everything profiled for Express Scripts Holding is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/express-scripts-holding/](https://apis.io/providers/express-scripts-holding/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (1)
 
- - Health, Healthcare, Pharmacy, Pharmacy Benefit Management, Prescriptions, Claims, Fortune 100
+- [Express Scripts Partner APIs](https://apis.io/apis/express-scripts-holding/express-scripts-holding-partner-apis/) — The partner-facing API estate Express Scripts exposes through its own gateway. The production host api.express-scripts.io and the sandbox host…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-03-24
-- **Modified:** 2026-09-07
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Security (4)
 
-**Express Scripts Partner APIs** — `https://api.express-scripts.io`
-([reference](https://developer.express-scripts.com/service-apis))
+Authentication, trust centre, and vulnerability disclosure.
 
-Express Scripts operates a real partner API estate: a production gateway at
-`api.express-scripts.io`, a separate sandbox gateway at `api-sandbox.express-scripts.io`,
-and its own OAuth 2.0 / OpenID Connect authorization server on an Express Scripts Okta
-tenant. Both gateway hosts answer HTTP 401 to every anonymous request, including
-`/.well-known/*` paths, so the gateway authenticates before it routes.
+- [Express Scripts Holding Authentication](https://apis.io/security/express-scripts-holding/express-scripts-holding-authentication/)
+- [Express Scripts Holding Domain Security](https://apis.io/security/express-scripts-holding/express-scripts-holding-domain-security/)
+- [Express Scripts Holding Trust Center](https://apis.io/security/express-scripts-holding/express-scripts-holding-trust-center/)
+- [Express Scripts Holding Vulnerability Disclosure](https://apis.io/security/express-scripts-holding/express-scripts-holding-vulnerability-disclosure/)
 
-**No API contract is published publicly.** No OpenAPI, GraphQL SDL, AsyncAPI, Protobuf or
-WSDL is reachable at any anonymous URL. The developer portal renders client-side, its
-content backend returns `{"message":"Missing Authentication Token"}` (HTTP 403) on every
-path, and the portal's own deployed configuration sets `"public-specs": false` — so
-specifications are visible only to approved partners after sign-in.
+#### OAuth scopes (1)
 
-What Express Scripts *does* publish anonymously are its OAuth discovery documents, captured
-verbatim in `well-known/`: OpenID Connect discovery and RFC 8414 authorization-server
-metadata advertising PKCE (S256), DPoP, PAR, the device grant, CIBA, token introspection,
-revocation and dynamic client registration.
+The permissions the API asks for.
 
-> **Not Express Scripts.** The developer portal shares one codebase with the Cigna and
-> Evernorth portals, and its bundle names two FHIR base URLs on `digitaledge.cigna.com`.
-> Both CapabilityStatements were fetched and both declare `publisher: "Cigna, Inc."`. Those
-> are Cigna's CMS Interoperability APIs and are deliberately **not** attributed to Express
-> Scripts.
+- [Express Scripts Holding Scopes](https://apis.io/scopes/express-scripts-holding/express-scripts-holding-scopes/)
 
-## Common Properties
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Express Scripts Holding Plans Pricing](https://apis.io/plans/express-scripts-holding/express-scripts-holding-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Express Scripts Holding Rate Limits](https://apis.io/rate-limits/express-scripts-holding/express-scripts-holding-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.express-scripts.com)
-- [Developer Portal](https://developer.express-scripts.com/)
-- [Parent Company](https://www.evernorth.com/)
-- [GitHub Organization](https://github.com/ExpressScripts)
-- [Terms of Service](https://www.express-scripts.com/terms-of-use)
-- [Privacy Policy](https://www.evernorth.com/privacy-policy)
 - [Support](https://www.express-scripts.com/contact-us)
-- [Help Center](https://www.express-scripts.com/frequently-asked-questions)
-- [Trust Center](https://trust.express-scripts.com/) — SOC 2, PCI DSS, HIPAA
-- [Vulnerability Disclosure](https://www.cigna.com/legal/members/responsible-vulnerability-disclosure)
+- [Blog](https://www.express-scripts.com/pharmacy/blog)
+- [Terms of service](https://www.express-scripts.com/terms-of-use)
+- [Privacy policy](https://www.evernorth.com/privacy-policy)
+- [GitHub](https://github.com/ExpressScripts)
 
-Machine-readable artifacts in this repository: `well-known/`, `authentication/`, `scopes/`,
-`conformance/`, `sandbox/`, `lifecycle/`, `plans/`, `rate-limits/`, `packages/`, `llms/`,
-`security/`.
+## API Evangelist rating
 
-## Maintainers
+**Kin Score 28.9** — thin · rubric 0.24.0 · scored 2026-10-17
 
-**FN:** Kin Lane
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 26.2 |
+| Access clarity | 36.8 |
 
-**Email:** kin@apievangelist.com
+**Agent readiness 17.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 46.1** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/express-scripts-holding/](https://apis.io/providers/express-scripts-holding/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Express Scripts Holding: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/express-scripts-holding/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
